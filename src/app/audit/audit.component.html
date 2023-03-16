@@ -1,0 +1,53 @@
+<!-- <h1>Hi {{currentUser.firstName}}!</h1> -->
+<p>You're logged in with Angular 8!!</p>
+<h3>All login audit :</h3>
+
+<table class="table table-bordered" style="min-width: 1100px;">
+    <thead>
+        <tr>
+            <th>RowNum</th>
+            <ng-container *ngFor="let header of headers">
+                <th>{{header.headerName}} <span (click)="sort(header)">{{header.sortIcon}}</span></th>
+            </ng-container>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td><input class="form-control" type="text" name="" (change)="filter()" id="id" placeholder="Search"></td>
+            <td><input class="form-control" type="text" name="" (change)="filter()" id="user" placeholder="Search"></td>
+            <td><input class="form-control" type="text" name="" (change)="filter()" id="loginTime" placeholder="Search"></td>
+            <td><input class="form-control" type="text" name="" (change)="filter()" id="logoutTime" placeholder="Search"></td>
+            <td><input class="form-control" type="text" name="" (change)="filter()" id="ip" placeholder="Search"></td>
+        </tr>
+        <tr *ngFor="let audit of audits | slice:current:current+pageLimit; let i = index">
+            <td>{{current+i+1}}</td>
+            <td>{{audit.id}}</td>
+            <td>{{audit.user}}</td>
+            <td>{{audit.loginTime | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{audit.logoutTime | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{audit.ip}}</td>
+        </tr>
+    </tbody>
+</table>
+<div style="display: flex;justify-content: center;width: 1100px;align-items: center;">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" [ngClass]="current==0 ? 'disabled' :''" ><a class="page-link" href="javascript:void(0)" (click)="current=current-pageLimit" >Previous</a></li>
+          <li class="page-item"><a class="page-link">{{pageLimit}} Records Per Page</a></li>
+          <li class="page-item"><a class="page-link" href="javascript:void(0)" (click)="current=current+pageLimit">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
+
+<!-- <ul>
+    <li *ngFor="let audit of audits">
+        <br/><span class="badge badge-primary">{{audit.user}}</span>
+        <br/><span class="badge badge-secondary">{{audit._id}}</span>
+        <br/>Login - {{audit.loginTime}}
+        <br/>Logout - {{audit.logoutTime}}
+        <br/>IP - {{audit.ip}}
+    </li>
+
+</ul> -->
